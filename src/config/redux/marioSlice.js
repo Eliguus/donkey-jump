@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   jumping: false,
+  moveLeft: false,
+  moveRight: false,
   bottom: null,
   height: null,
   left: null,
@@ -18,6 +20,12 @@ export const marioSlice = createSlice({
   reducers: {
     marioJumping: (state, action) => {
       state.jumping = action.payload;
+    },
+    marioMoveLeft: (state, action) => {
+      state.moveLeft = action.payload;
+    },
+    marioMoveRight: (state, action) => {
+      state.moveRight = action.payload;
     },
     marioBottom: (state, action) => {
       state.bottom = action.payload;
@@ -48,6 +56,9 @@ export const marioSlice = createSlice({
 
 export const {
   marioJumping,
+  marioLife,
+  marioMoveLeft,
+  marioMoveRight,
   marioBottom,
   marioHeight,
   marioLeft,

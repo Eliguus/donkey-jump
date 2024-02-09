@@ -1,15 +1,11 @@
-<H1 align ="center" > MARIO JUMP  </h1>
-<h5  align ="center"> 
-Mario Jump is an endless running game inspired by the famous Google Chrome's T-Rex Dinosaur Game 🦖.  
+<h1 align ="center" > MARIO(THE donkey) JUMP  </h1>
 The game is built entirely with ReactJS ⚛ and Redux Toolkit 🔧.  <br/>
-<a href="https://mariojumpp.vercel.app/">Play Here 🎮</a> </h5>
+<a href="#">Play Here 🎮</a> </h5>
 <br/>
 
   * [Configuration and Setup](#configuration-and-setup)
   * [Key Features](#key-features)
   * [Technologies used](#technologies-used)
-  * [🎮 Gameplay ](#gameplay )
-  * [Author](#author)
   * [License](#license)
 
 ## Configuration and Setup
@@ -49,22 +45,11 @@ This project was created using the following technologies.
 - [React Redux](https://react-redux.js.org/) -Helps maintain consistency between state and views
 - [Redux Toolkit](https://redux-toolkit.js.org/) - To facilitate the development of web applications using Redux
  
- ##  Gameplay 
-
-![mario-jump-game](https://user-images.githubusercontent.com/111676859/235500789-7561dfe0-642b-41b2-bb6a-8274c158c0fc.gif)
-
-## Author
-- Portfolio: [berthutapea](https://berthutapea.vercel.app/)
-- Github: [berthutapea](https://github.com/berthutapea)
-- Sponsor: [berthutapea](https://saweria.co/berthutapea)
-- Linkedin: [gilberthutapea](https://www.linkedin.com/in/gilberthutapea/)
-- Email: [berthutapea@gmail.com](mailto:berthutapea@gmail.com)
-
 ## License
 
 MIT License
 
-Copyright (c) 2022 Gilbert Hutapea
+Copyright (c) 2022 Naol Taye
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

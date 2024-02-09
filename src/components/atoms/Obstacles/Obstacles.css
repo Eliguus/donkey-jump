@@ -4,21 +4,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .obstacle1, .obstacle2 {
-    height: 60px;
+    height: 60px; /* Adjust height as needed */
     width: auto;
     position: absolute;
-    bottom: 120px;
+    left: 50%; /* Start from the middle */
+    transform: translateX(-50%); /* Center horizontally */
 }
 
-.obstacle1 {
-    left: 120vw;
+.obstacle1 { 
+    top: -60px; /* Start above the viewport */
 }
+
 .obstacle2 {
-    left: 240vw;
+    top: -120px; /* Start above the viewport */
 }
 
 .obstacle1-move {
@@ -37,40 +38,18 @@
 
 @keyframes obstacle1-animation {
     0% {
-        left: 125vw;
+        top: -60px; /* Start above the viewport */
     }
     100% {
-        left: -120vw;
+        top: 100vh; /* End below the viewport */
     }
 }
 
 @keyframes obstacle2-animation {
     0% {
-        left: 240vw;
+        top: -120px; /* Start above the viewport */
     }
     100% {
-        left: -240vw;
-    }
-}
-
-/* Media Queries */
-@media (max-width: 1280px) {
-    .obstacle1, .obstacle2 {
-        height: 50px;
-        bottom: 100px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .obstacle1, .obstacle2 {
-        height: 40px;
-        bottom: 60px;
-    }
-}
-
-@media (max-width: 640px) {
-    .obstacle1, .obstacle2 {
-        height: 30px;
-        bottom: 60px;
+        top: 100vh; /* End below the viewport */
     }
 }

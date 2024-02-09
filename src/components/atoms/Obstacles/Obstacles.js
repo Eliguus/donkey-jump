@@ -1,7 +1,7 @@
 import "./Obstacles.css";
 import obstacle1 from "../../../assets/img/gif/goombla.gif";
 import obstacle2 from "../../../assets/img/gif/koopa.gif";
-import { useRef, useEffect } from "react";
+import { useState,useRef, useEffect } from "react";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -46,22 +46,40 @@ const Obstacles = () => {
     }
   }, [speed, dispatch]);
 
+
+  const [randomOffset, setRandomOffset] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const offsetOptions = [35, 65];
+      const randomOffset = offsetOptions[Math.floor(Math.random() * offsetOptions.length)];
+      setRandomOffset(randomOffset);
+    }, 5000-speed);
+
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, [])
   return (
     <div className="obstacles-container">
       <img
         src={obstacle1}
         alt=""
-        className={isPlay ? "obstacle1 obstacle1-move" : "obstacle1"}
-        style={isPlay ? { animationDuration: `${3 - speed}s` } : { animationDuration: `3s` }}
+        className={isPlay ? `obstacle1 obstacle1-move` : "obstacle1"}
+        style={{
+          left: `  ${randomOffset}%`,
+          ...(isPlay ? { animationDuration: `${5-speed}s` } : { animationDuration: `3s` })
+        }}
         ref={obstacle1Ref}
       />
-      <img
+      {/* <img
         src={obstacle2}
         alt=""
         className={isPlay ? "obstacle2 obstacle2-move" : "obstacle2"}
-        style={isPlay ? { animationDuration: `${6 - speed}s` } : { animationDuration: `6s` }}
+        style={{
+          left: `calc(50% + ${randomOffset}px)`,
+          ...(isPlay ? { animationDuration: `${6 - speed}s` } : { animationDuration: `6s` })}
+        }
         ref={obstacle2Ref}
-      />
+      /> */}
     </div>
   );
 };

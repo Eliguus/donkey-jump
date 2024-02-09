@@ -1,9 +1,9 @@
 .mario {
     width: 5rem;
-    height: auto;
+    height: 20vh;
     position: absolute;
-    bottom: 12.4vh;
-    left: 40px;
+    bottom: 1vh;
+    left: 50%;
 }
 
 .jump {
@@ -13,10 +13,26 @@
 }
 
 @keyframes jumping {
-    0% {
+    2% {
         transform: translateY(-15vh);
     }
 }
+
+.start {
+    animation-name: starting;
+    animation-timing-function: ease-out;
+    animation-duration: 4s;
+}
+
+@keyframes starting {
+    2% {
+        transform: translateY(-100vh);
+    }
+}
+
+
+
+
 
 /* Mario Die */
 .die {
@@ -56,4 +72,44 @@
         left: 20px;
         bottom: 60px;
     }
+}
+
+
+.moveLeft {
+    animation-name: moving;
+    animation-timing-function: linear; /* Optional: change timing function as per your preference */
+    animation-duration: 2s; /* Adjust duration as needed for the speed of movement */
+    animation-iteration-count: 1; /* Ensure the animation repeats infinitely */
+    animation-fill-mode: forwards; 
+}
+
+@keyframes moving {
+    0% {
+        transform: translateX(0); /* Start from the original position */
+    }
+    100% {
+        transform: translateX(-65%); /* Move to the left by 15vw */
+    }
+    
+}
+
+
+
+
+.moveRight {
+    animation-name: movingX;
+    animation-timing-function: linear; /* Optional: change timing function as per your preference */
+    animation-duration: 2s; /* Adjust duration as needed for the speed of movement */
+    animation-iteration-count: infinite; /* Ensure the animation repeats infinitely */
+    animation-fill-mode: forwards; 
+}
+
+@keyframes movingX {
+    0% {
+        transform: translateX(0); /* Start from the original position */
+    }
+    100% {
+        transform: translateX(65%); /* Move to the left by 15vw */
+    }
+    
 }

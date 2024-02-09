@@ -1,12 +1,14 @@
 import "./Mario.css";
 import MarioCharacter from "../../../assets/img/gif/mario-run.gif";
-import { useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useCallback, useMemo, useState } from "react";
 import jumpAudio from "../../../assets/audio/mario-jump.mp3";
 import backgroundMusic from "../../../assets/audio/running-about.mp3";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import {
   marioJumping,
+  marioMoveLeft,
+  marioMoveRight,
   marioHeight,
   marioLeft,
   marioTop,
@@ -22,10 +24,14 @@ const Mario = () => {
   const dispatch = useDispatch();
   const die = useSelector((state) => state.engine.die);
   const loadingScreen = useSelector((state) => state.engine.loadingScreen);
-
+  const [direction,setDirection] = useState({})
+  const [directionValue,setDirectionValue] = useState(50)
   const isPlay = useSelector((state) => state.engine.play);
   // Mario positions & jump
   const mario_jump = useSelector((state) => state.mario.jumping);
+  const life = useSelector((state) => state.mario.life);
+  const mario_moveLeft = useSelector((state)=>state.mario.moveLeft)
+  const mario_moveRight = useSelector((state)=>state.mario.moveRight)
   const mario_height = useSelector((state) => state.mario.height);
   const mario_left = useSelector((state) => state.mario.left);
   const mario_top = useSelector((state) => state.mario.top);
@@ -63,6 +69,10 @@ const Mario = () => {
       }
       if (mario_jump === false && e.code === "Space" && isPlay && !die && !loadingScreen) {
         dispatch(marioJumping(true));
+        
+        setDirection({
+          left:'50%'
+        })
         jump.play();
         setTimeout(() => {
           dispatch(marioJumping(false));
@@ -70,17 +80,48 @@ const Mario = () => {
           jump.currentTime = 0;
         }, 400);
       }
+
+      if (e.code === "ArrowLeft" && mario_moveLeft === false &&  isPlay && !die && !loadingScreen) {
+        console.log(mario_moveLeft)
+        dispatch(marioMoveLeft(true));
+        
+        jump.play();
+        setTimeout(() => {
+          dispatch(marioMoveLeft(false));
+          setDirectionValue(35)
+          setDirection({
+          left: `${directionValue}%`,
+        })
+        
+          jump.pause();
+          jump.currentTime = 0;
+        }, 400);
+      }
+      if (mario_moveRight === false && e.code === "ArrowRight" && isPlay && !die && !loadingScreen) {
+        dispatch(marioMoveRight(true));
+        
+        jump.play();
+        setTimeout(() => {
+          dispatch(marioMoveRight(false));
+          setDirectionValue(65)
+          setDirection({
+          left: `${directionValue}%`,
+        })
+          jump.pause();
+          jump.currentTime = 0;
+        }, 400);
+      }
+      
     },
-    [mario_jump, jump, dispatch, isPlay, die, loadingScreen]
+    [isPlay, die, loadingScreen, mario_jump, mario_moveLeft, mario_moveRight, dispatch, jump, directionValue]
   );
 
   useEffect(() => {
-    if (
-      mario_left < obs1_left + obs1_width &&
-      mario_left + mario_width > obs1_left &&
-      mario_top < obs1_top + obs1_height &&
-      mario_top + mario_height > obs1_top
-    ) {
+     if (
+      mario_top + mario_height > obs1_top &&  
+      mario_top < obs1_top + obs1_height      
+  ){
+    
       dispatch(setDie(true));
       marioDie.play();
       dispatch(setReady(false));
@@ -91,39 +132,7 @@ const Mario = () => {
         dispatch(setScore(0));
       }, 100);
     }
-
-    if (
-      mario_left < obs2_left + obs2_width &&
-      mario_left + mario_width > obs2_left &&
-      mario_top < obs2_top + obs2_height &&
-      mario_top + mario_height > obs2_top
-    ) {
-      dispatch(setDie(true));
-      marioDie.play();
-      dispatch(setReady(false));
-      setTimeout(() => {
-        dispatch(setDie(false));
-      }, 2000);
-      setTimeout(() => {
-        dispatch(setScore(0));
-      }, 100);
-    }
-  }, [
-    mario_left,
-    obs1_left,
-    obs1_width,
-    mario_width,
-    mario_top,
-    obs1_top,
-    obs1_height,
-    mario_height,
-    dispatch,
-    marioDie,
-    obs2_left,
-    obs2_width,
-    obs2_top,
-    obs2_height,
-  ]);
+  }, [mario_left, obs1_left, obs1_width, mario_width, mario_top, obs1_top, obs1_height, mario_height, dispatch, marioDie, obs2_left, obs2_width, obs2_top, obs2_height, life]);
 
   // Monitor key press.
   useEffect(() => {
@@ -141,13 +150,15 @@ const Mario = () => {
     }
   }, [handleKey, dispatch, bgMusic, isPlay]);
 
+
   return (
     <div className="mario-container">
       {!die && (
         <img
           src={MarioCharacter}
           alt=""
-          className={`mario ${mario_jump ? "jump" : ""}`}
+          className={`mario  ${mario_moveLeft ? "moveLeft" : ""}  ${mario_moveRight ? "moveRight" : ""}`}
+          style={direction}
           ref={marioRef}
         />
       )}
